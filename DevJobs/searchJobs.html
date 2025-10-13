@@ -4,13 +4,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta description="Find job like a developer in seconds, search among thousands of offers.">
+    <meta name="description" description="Find job like a developer in seconds, search among thousands of offers.">
     <title>Search Jobs - DevJobs</title>
+
+    <link rel="stylesheet" href="./styles.css">
+
+
 </head>
 
 <body>
     <header>
-        <h2>DevJobs</h2>
+        <h1>
+            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <polyline points="16 18 22 12 16 6"></polyline>
+                <polyline points="8 6 2 12 8 18"></polyline>
+            </svg>
+
+            DevJobs
+        </h1>
 
         <nav>
             <a href="">Inicio</a>
@@ -30,58 +42,64 @@
 
     <main>
 
-        <section>
+        <section class="jobs-search">
 
             <h1>Encuentra tu proximo trabajo</h1>
 
             <p>Explora miles de oportunidades en el sector tecnologico</p>
 
             <form role="search">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
-                    class="icon icon-tabler icons-tabler-outline icon-tabler-search">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                    <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
-                    <path d="M21 21l-6 -6" />
-                </svg>
-                <input type="text" placeholder="Search for jobs by title, skills, or company.">
-                <button type="submit">Search</button>
+                <div class="search-bar">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+                        class="icon icon-tabler icons-tabler-outline icon-tabler-search">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
+                        <path d="M21 21l-6 -6" />
+                    </svg>
+                    <input type="text" placeholder="Search for jobs by title, skills, or company.">
+                    <button type="submit">Search</button>
+                </div>
             </form>
 
             <form action="#">
-              
-                <select name="lenguajes" id="lang">
-                    <option value="Tecnologias">Tecnologias</option>
-                    <option value="javascript">javascript</option>
-                    <option value="php">PHP</option>
-                    <option value="java">Java</option>
-                    <option value="golang">Golang</option>
-                    <option value="python">Python</option>
-                    <option value="c#">C#</option>
-                    <option value="C++">C++</option>
-                </select>
-                
-                <select name="ubicacion" id="">
-                    <option value="ubicacion">Ubicacion</option>
-                    <option value="remoto">Remoto</option>
-                    <option value="presencial">Presencial</option>
-                    <option value="hibrido">Hibrido</option>
-                </select>
 
-                <select name="contrato" id="">
-                    <option value="tipo de contrato">Tipo de contrato</option>
-                    <option value="fulltime">Full Time</option>
-                    <option value="parttime">Part Time</option>
-                    <option value="freelance">Freelance</option>
-                    <option value="temporal">Temporal</option>
-                </select>
+                <div class="search-filters">
 
-                <select name="experiencia" id="">
-                    <option value="experiencia">Experiencia</option>
-                    <option value="junior">Junior</option>
-                    <option value="semi-senior">Semi-Senior</option>
-                    <option value="senior">Senior</option>
-                </select>
+                    <select name="lenguajes" id="lang">
+                        <option value="Tecnologias">Tecnologias</option>
+                        <option value="javascript">javascript</option>
+                        <option value="php">PHP</option>
+                        <option value="java">Java</option>
+                        <option value="golang">Golang</option>
+                        <option value="python">Python</option>
+                        <option value="c#">C#</option>
+                        <option value="C++">C++</option>
+                    </select>
+
+                    <select name="ubicacion" id="">
+                        <option value="ubicacion">Ubicacion</option>
+                        <option value="remoto">Remoto</option>
+                        <option value="presencial">Presencial</option>
+                        <option value="hibrido">Hibrido</option>
+                    </select>
+
+                    <select name="contrato" id="">
+                        <option value="tipo de contrato">Tipo de contrato</option>
+                        <option value="fulltime">Full Time</option>
+                        <option value="parttime">Part Time</option>
+                        <option value="freelance">Freelance</option>
+                        <option value="temporal">Temporal</option>
+                    </select>
+
+                    <select name="experiencia" id="">
+                        <option value="experiencia">Experiencia</option>
+                        <option value="junior">Junior</option>
+                        <option value="semi-senior">Semi-Senior</option>
+                        <option value="senior">Senior</option>
+                    </select>
+
+                </div>
 
             </form>
 
@@ -92,7 +110,55 @@
                 <h2>Resultados de la busqueda</h2>
             </header>
 
-            
+            <div class="jobs-listings">
+                <article>
+                    <div>
+                        <h3>Ingeniero de Software</h3>
+                        <small>Full Stack|Remoto</small>
+                        <p>Estamos buscando un Ingeniero de Software talentoso para unirse a nuestro equipo
+                            dinámico. Si eres un desarrollador apasionado por crear soluciones innovadoras y tienes
+                            experiencia en tecnologías web modernas, ¡queremos conocerte!</p>
+                    </div>
+                    <button>Aplicar</button>
+                </article>
+
+                <article>
+                    <div>
+                        <h3>Desarrollador Frontend</h3>
+                        <small>React | Presencial</small>
+                        <p>Únete a nuestro equipo como Desarrollador Frontend y ayuda a construir interfaces de usuario
+                            atractivas y funcionales. Buscamos a alguien con experiencia en React y un ojo para el
+                            diseño.</p>
+                    </div>
+                    <button>Aplicar</button>
+                </article>
+
+                <article>
+                    <div>
+                        <h3>Desarrollador Backend</h3>
+                        <small>Node.js | Hibrido</small>
+                        <p>Estamos en busca de un Desarrollador Backend con experiencia en Node.js para trabajar en
+                            proyectos emocionantes. Si te apasiona construir APIs robustas y escalables, ¡aplica
+                            ahora!</p>
+                    </div>
+                    <button>Aplicar</button>
+                </article>
+
+                <article class="last-child">
+                    <div>
+                        <h3>Ingeniero de DevOps</h3>
+                        <small>AWS | Remoto</small>
+                        <p>Buscamos un Ingeniero de DevOps con experiencia en AWS para optimizar nuestros procesos de
+                            desarrollo y despliegue. Si tienes habilidades en automatización y gestión de infraestructuras,
+                            ¡te queremos en nuestro equipo!</p>
+                    </div>
+                    <button>Aplicar</button>
+                </article>
+            </div>
+
+            ...
+
+
         </section>
     </main>
 

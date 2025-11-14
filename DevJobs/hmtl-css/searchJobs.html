@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" description="Find job like a developer in seconds, search among thousands of offers.">
+    <title>Search Jobs - DevJobs</title>
+
+    <link rel="stylesheet" href="./styles.css">
+
+    <script type="module" src="../js/script.js"></script>
+
+
+</head>
+
+<body>
+    <header>
+        <h1>
+            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <polyline points="16 18 22 12 16 6"></polyline>
+                <polyline points="8 6 2 12 8 18"></polyline>
+            </svg>
+
+            DevJobs
+        </h1>
+
+        <nav>
+            <a href="./index.html">Inicio</a>
+            <a href="">Empleos</a>
+            <a href="">Empresas</a>
+            <a href="">Salarios</a>
+
+
+        </nav>
+
+        <div>
+            <!--<a href="">Subir CV</a>-->
+            <devjobs-avatar service="x" username="isfranklinb" size="40"></devjobs-avatar>
+            
+        </div>
+
+    </header>
+
+    <main>
+
+        <section class="jobs-search">
+
+            <h1>Encuentra tu proximo trabajo</h1>
+
+            <p>Explora miles de oportunidades en el sector tecnologico</p>
+
+            <form role="search">
+                <div class="search-bar">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+                        class="icon icon-tabler icons-tabler-outline icon-tabler-search">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
+                        <path d="M21 21l-6 -6" />
+                    </svg>
+                    <input type="text" placeholder="Search for jobs by title, skills, or company.">
+                    <button type="submit">Search</button>
+                </div>
+            </form>
+
+            <form action="#">
+
+                <div class="search-filters">
+
+                    <select id="filter-technology">
+                        <option value="">Todas las tecnologías</option>
+
+                        <optgroup label="Frontend">
+                            <option value="html">HTML</option>
+                            <option value="css">CSS</option>
+                            <option value="javascript">JavaScript</option>
+                            <option value="react">React</option>
+                            <option value="vue">Vue</option>
+                        </optgroup>
+
+                        <optgroup label="Backend">
+                            <option value="node">Node.js</option>
+                            <option value="python">Python</option>
+                            <option value="php">PHP</option>
+                            <option value="java">Java</option>
+                        </optgroup>
+
+                        <optgroup label="Base de datos">
+                            <option value="mysql">MySQL</option>
+                            <option value="mongodb">MongoDB</option>
+                            <option value="postgresql">PostgreSQL</option>
+                        </optgroup>
+                    </select>
+
+                    <select name="ubicacion" id="filter-location">
+                        <option value="">Ubicacion</option>
+                        <option value="remoto">Remoto</option>
+                        <option value="presencial">Presencial</option>
+                        <option value="hibrido">Hibrido</option>
+                    </select>
+
+                    <select name="experiencia" id="experience-level">
+                        <option value="">Experiencia</option>
+                        <option value="junior">Junior</option>
+                        <option value="semi-senior">Semi-Senior</option>
+                        <option value="senior">Senior</option>
+                    </select>
+
+                </div>
+
+            </form>
+
+            <span id="filter-selected-value"></span>
+
+        </section>
+
+        <section>
+            <header>
+                <h2>Resultados de la busqueda</h2>
+            </header>
+
+            <div class="jobs-listings">
+
+                <!-- aqui se agregan las tarjetas de trabajo dinamicamente -->
+                
+            </div>
+
+            <nav class="pagination">
+
+                <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-left">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M15 6l-6 6l6 6" />
+                    </svg></a>
+                <a href="#" class="is-active">1</a>
+                <a href="#">2</a>
+                <a href="#">3</a>
+                <a href="#">4</a>
+                <a href="#">5</a>
+                <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M9 6l6 6l-6 6" />
+                    </svg></a>
+
+            </nav>
+
+
+        </section>
+    </main>
+
+    <footer>
+        <small>&copy; 2025 DevJobs. All rights reserved.</small>
+    </footer>
+
+</body>
+
+</html>

@@ -1,7 +1,8 @@
 export function Header() {
     return (
         <header>
-            <h1>
+           <a href="./home" style={{ textDecoration: 'none', color: 'inherit' }   }>
+             <h1>
                 <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
                     viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <polyline points="16 18 22 12 16 6"></polyline>
@@ -10,10 +11,11 @@ export function Header() {
 
                 DevJobs
             </h1>
+           </a>
 
             <nav>
-                <a href="./index.html">Inicio</a>
-                <a href="">Empleos</a>
+                <a href="./home">Inicio</a>
+                <a href="./search">Empleos</a>
                 <a href="">Empresas</a>
                 <a href="">Salarios</a>
 

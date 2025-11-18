@@ -55,6 +55,8 @@ export function SearchPage() {
         document.title = `Resultados ${jobsWithTextFilter.length} - Página ${currentPage} -DevJobs`
     }, [jobsWithTextFilter, currentPage])
 
+
+
     return (
             <main>
 

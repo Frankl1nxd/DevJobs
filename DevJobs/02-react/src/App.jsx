@@ -4,33 +4,19 @@ import { Footer } from "./assets/components/Footer.jsx"
 
 import { HomePage } from "./assets/pages/Home.jsx"
 import { SearchPage } from "./assets/pages/Search.jsx"
-import { NotFoundPage } from "./assets/pages/404.jsx"
-import { useRouter } from "./hooks/useRouter.jsx"
+import { Route } from "./assets/components/Route.jsx"
 
 
 
 
 function App() {
-    const { currentPath } = useRouter()
-
-    let page = <NotFoundPage />
-
-    if (currentPath === '/home') {
-        page = <HomePage />
-    } else if (currentPath === '/search') {
-        page = <SearchPage />
-    }
-
-                                                                                        
 
     return (
         <>
             <Header />
-
-            {page}
-
+            <Route path='/' component={HomePage} />
+            <Route path='/search' component={SearchPage} />
             <Footer />
-
         </>
     )
 }

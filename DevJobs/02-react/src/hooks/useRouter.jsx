@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
-export
 
-function useRouter () {
+
+export function useRouter () {
     const [currentPath, setCurrentPath] = useState(window.location.pathname)
 
     useEffect(() => {

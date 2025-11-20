@@ -1,5 +1,5 @@
 
-import { useEffect,useState } from "react"
+import { useEffect, useState } from "react"
 
 import { Pagination } from "../components/Pagination.jsx"
 import { SearchFormSection } from "../components/SearchFormSection.jsx"
@@ -9,7 +9,8 @@ import jobsData from '../../data.json'
 
 const RESULTS_PER_PAGE = 5
 
-export function SearchPage() {
+const useFilter = () => {
+
     const [filters, setFilters] = useState({
         technology: '',
         location: '',
@@ -18,31 +19,18 @@ export function SearchPage() {
     const [textToFilter, setTextToFilter] = useState("")
     const [currentPage, setCurrentPage] = useState(1)
 
-    const jobsFilteredByFilters = jobsData.filter(job => {
-        return (
-            (filters.technology === '' || job.data.technology  === filters.technology)
-        )
-    })
+    const [jobs, setJobs] = useState([])
+    const [loading, setLoading] = useState(true)
 
-
-    const jobsWithTextFilter = textToFilter === '' ? jobsFilteredByFilters : jobsFilteredByFilters.filter(job => {
-        return job.titulo.toLowerCase().includes(textToFilter.toLowerCase())
-    })
-
-    const totalPages = Math.ceil(jobsWithTextFilter.length / RESULTS_PER_PAGE)
-
-    const pageResults = jobsWithTextFilter.slice(
-        (currentPage - 1) * RESULTS_PER_PAGE,
-        currentPage * RESULTS_PER_PAGE
-    )
+    const totalPages = Math.ceil(jobs.length / RESULTS_PER_PAGE)
 
     const handlePageChange = (page) => {
         setCurrentPage(page)
     }
 
     const handleSearch = (filters) => {
-        setFilters(filters) 
-        setCurrentPage(1)   
+        setFilters(filters)
+        setCurrentPage(1)
 
     }
 
@@ -51,24 +39,46 @@ export function SearchPage() {
         setCurrentPage(1)
     }
 
+    return {
+        jobs,
+        totalPages,
+        currentPage,
+        handlePageChange,
+        handleSearch,
+        handleTextFilter
+    }
+
+}
+
+export function SearchPage() {
+
+    const {
+        jobs,
+        totalPages,
+        currentPage,
+        handlePageChange,
+        handleSearch,
+        handleTextFilter
+    } = useFilter()
+
     useEffect(() => {
-        document.title = `Resultados ${jobsWithTextFilter.length} - Página ${currentPage} -DevJobs`
-    }, [jobsWithTextFilter, currentPage])
+        document.title = `Resultados ${jobs.length} - Página ${currentPage} -DevJobs`
+    }, [jobs, currentPage])
 
 
 
     return (
-            <main>
+        <main>
 
-                <SearchFormSection onSearch={handleSearch} onTextFilter={handleTextFilter} />
+            <SearchFormSection onSearch={handleSearch} onTextFilter={handleTextFilter} />
 
-                <section>
+            <section>
 
-                    <JobListings jobs={pageResults} />
-                    <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
+                <JobListings jobs={jobs} />
+                <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
 
-                </section>
-            </main>
+            </section>
+        </main>
     )
 }
 

@@ -1,10 +1,7 @@
-import { useId } from "react"
+import { useId, useState } from "react"
 
-export function SearchFormSection({ onTextFilter, onSearch }) {
-    const idText = useId()
-    const idLocation = useId()
-    const idExperienceLevel = useId()
-    const idTechnology = useId()
+const useSearchForm = ({ idLocation, idExperienceLevel, idTechnology, onSearch, onTextFilter }) => {
+    const  {searchText, setSearchText}  = useState('')
 
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -22,8 +19,31 @@ export function SearchFormSection({ onTextFilter, onSearch }) {
 
     const handleTextChange = (event) => {
         const text = event.target.value
+        setSearchText(text)
         onTextFilter(text)
     }
+
+    return {
+        handleSubmit,
+        handleTextChange,
+        searchText,
+    }
+}
+
+export function SearchFormSection({ onTextFilter, onSearch }) {
+    const idText = useId()
+    const idLocation = useId()
+    const idExperienceLevel = useId()
+    const idTechnology = useId()
+
+    const {
+        handleSubmit,
+        handleTextChange,
+    } = useSearchForm({ idLocation, idExperienceLevel, idTechnology, onSearch, onTextFilter })
+
+
+
+
 
     return (
         <section className="jobs-search">
@@ -32,7 +52,7 @@ export function SearchFormSection({ onTextFilter, onSearch }) {
 
             <p>Explora miles de oportunidades en el sector tecnologico</p>
 
-            <form onChange={handleSubmit} id="empleos-search-form" role="search">   
+            <form onChange={handleSubmit} id="empleos-search-form" role="search">
                 <div className="search-bar">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"
@@ -42,11 +62,11 @@ export function SearchFormSection({ onTextFilter, onSearch }) {
                         <path d="M21 21l-6 -6" />
                     </svg>
 
-                    <input name={idText} id="empleos-search-input" type="text" placeholder="Search for jobs by title, skills, or company." onChange={handleTextChange}/>
+                    <input name={idText} id="empleos-search-input" type="text" placeholder="Search for jobs by title, skills, or company." onChange={handleTextChange} />
 
                 </div>
 
-                
+
 
                 <div className="search-filters">
 

@@ -20,7 +20,37 @@ const useFilter = () => {
     const [currentPage, setCurrentPage] = useState(1)
 
     const [jobs, setJobs] = useState([])
+    const [total, setTotal] = useState(0)
     const [loading, setLoading] = useState(true)
+
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                setLoading(true)
+
+                const params = new URLSearchParams()
+                if (textToFilter) params.append('text', textToFilter)
+                if (filters.technology) params.append('technology', filters.technology)
+                if (filters.location) params.append('type', filters.location)
+                if (filters.experienceLevel) params.append('level', filters.experienceLevel)
+
+                const queryParams = params.toString()
+
+
+                const response = await fetch(`https://jscamp-api.vercel.app/api/jobs?${queryParams}`)
+                const json = await response.json()
+
+                setJobs(json.data)
+                setTotal(json.total)
+            } catch (error) {
+                console.error('Error fetching jobs data:', error)
+            } finally {
+                setLoading(false)
+            }
+        }
+
+        fetchData()
+    }, [])
 
     const totalPages = Math.ceil(jobs.length / RESULTS_PER_PAGE)
 
@@ -40,7 +70,9 @@ const useFilter = () => {
     }
 
     return {
+        loading,
         jobs,
+        total,
         totalPages,
         currentPage,
         handlePageChange,
@@ -54,6 +86,8 @@ export function SearchPage() {
 
     const {
         jobs,
+        total,
+        loading,
         totalPages,
         currentPage,
         handlePageChange,
@@ -62,8 +96,8 @@ export function SearchPage() {
     } = useFilter()
 
     useEffect(() => {
-        document.title = `Resultados ${jobs.length} - Página ${currentPage} -DevJobs`
-    }, [jobs, currentPage])
+        document.title = `Resultados ${total} - Página ${currentPage} -DevJobs`
+    }, [total, currentPage])
 
 
 
@@ -74,7 +108,9 @@ export function SearchPage() {
 
             <section>
 
-                <JobListings jobs={jobs} />
+                {
+                    loading ? <p>Cargando empleos...</p> : <JobListings jobs={jobs} />
+                }
                 <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
 
             </section>

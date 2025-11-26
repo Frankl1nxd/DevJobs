@@ -33,6 +33,10 @@ const useFilter = () => {
                 if (filters.technology) params.append('technology', filters.technology)
                 if (filters.location) params.append('type', filters.location)
                 if (filters.experienceLevel) params.append('level', filters.experienceLevel)
+                
+                const offset = (currentPage - 1) * RESULTS_PER_PAGE
+                params.append('limit', RESULTS_PER_PAGE)
+                params.append('offset', offset)
 
                 const queryParams = params.toString()
 
@@ -50,7 +54,7 @@ const useFilter = () => {
         }
 
         fetchData()
-    }, [])
+    }, [filters, textToFilter, currentPage])
 
     const totalPages = Math.ceil(jobs.length / RESULTS_PER_PAGE)
 
@@ -95,14 +99,17 @@ export function SearchPage() {
         handleTextFilter
     } = useFilter()
 
-    useEffect(() => {
-        document.title = `Resultados ${total} - Página ${currentPage} -DevJobs`
-    }, [total, currentPage])
+  
 
 
+    const title = loading
+    ? `Cargando... -DevJobs`
+    :` Resultados: ${total}, Pagina: ${currentPage} -DevJOBS`
 
     return (
         <main>
+            <title>{title}</title>
+            <meta name="description" content="Explorar miles de oportunidades laborales en el sector tecnologico. Encuentra tu proximo empleo en de DevJobs"/>
 
             <SearchFormSection onSearch={handleSearch} onTextFilter={handleTextFilter} />
 

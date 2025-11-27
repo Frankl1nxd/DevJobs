@@ -1,9 +1,11 @@
-import { useId, useState } from "react"
+import { useId, useState, useRef } from "react"
 
-let timeoutId = null
+
 
 const useSearchForm = ({ idLocation, idExperienceLevel, idTechnology, idText, onSearch, onTextFilter }) => {
+    const timeoutId = useRef(null)
     const [searchText, setSearchText] = useState('')
+
 
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -28,11 +30,11 @@ const useSearchForm = ({ idLocation, idExperienceLevel, idTechnology, idText, on
         setSearchText(text) // actualizamos el input inmediatamente
 
         // DEBOUNCE: cancelar timeout anterior
-        if (timeoutId) {
-            clearTimeout(timeoutId)
+        if (timeoutId.current) {
+            clearTimeout(timeoutId.current)
         }
 
-        timeoutId = setTimeout(() => {
+        timeoutId.current = setTimeout(() => {
             onTextFilter(text)
         }, 500)
     }
@@ -49,11 +51,18 @@ export function SearchFormSection({ onTextFilter, onSearch }) {
     const idLocation = useId()
     const idExperienceLevel = useId()
     const idTechnology = useId()
+    const inputRef = useRef()
 
     const {
         handleSubmit,
         handleTextChange,
     } = useSearchForm({ idLocation, idExperienceLevel, idTechnology, idText, onSearch, onTextFilter })
+
+    const handleClearInput = (event) => {
+        event.preventDefault()
+        inputRef.current.value = ""
+        onTextFilter("")
+    }
 
 
 
@@ -67,6 +76,9 @@ export function SearchFormSection({ onTextFilter, onSearch }) {
             <p>Explora miles de oportunidades en el sector tecnologico</p>
 
             <form onChange={handleSubmit} id="empleos-search-form" role="search">
+
+
+
                 <div className="search-bar">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"
@@ -76,7 +88,11 @@ export function SearchFormSection({ onTextFilter, onSearch }) {
                         <path d="M21 21l-6 -6" />
                     </svg>
 
-                    <input name={idText} id="empleos-search-input" type="text" placeholder="Search for jobs by title, skills, or company." onChange={handleTextChange} />
+                    <input ref={inputRef} name={idText} id="empleos-search-input" type="text" placeholder="Search for jobs by title, skills, or company." onChange={handleTextChange} />
+
+                    <button onClick={handleClearInput}>
+                        ✖
+                    </button>
 
                 </div>
 

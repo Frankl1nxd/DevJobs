@@ -2,7 +2,7 @@ import { Link } from './Link'
 export function Header() {
     return (
         <header>
-           <Link href="./home" style={{ textDecoration: 'none', color: 'inherit' }   }>
+           <Link href="/" style={{ textDecoration: 'none', color: 'inherit' }   }>
              <h1>
                 <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
                     viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -15,10 +15,10 @@ export function Header() {
            </Link>
 
             <nav>
-                <Link href="./home">Inicio</Link>
-                <Link href="./search">Empleos</Link>
-                <Link href="">Empresas</Link>
-                <Link href="">Salarios</Link>
+                <Link href="/">Inicio</Link>
+                <Link href="/search">Empleos</Link>
+                <Link href="#">Empresas</Link>
+                <Link href="#">Salarios</Link>
 
 
             </nav>

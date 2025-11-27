@@ -21,16 +21,25 @@ export function Pagination({ currentPage = 1, totalPages = 8, onPageChange }) {
         }
     }
 
-    const handlePageChange = (event, page) => {
+    const handleChangePage = (event) => {
         event.preventDefault()
+        const page = Number(event.target.dataset.page)
+
         if (page !== currentPage) {
             onPageChange(page)
         }
     }
+
+    const buildPageUrl = (page) => {
+        const url = new URL(window.location)
+        url.searchParams.set('page', page)
+        return `${url.pathname}?${url.searchParams.toString()}`
+    }
+
     return (
         <nav className={styles.pagination}>
 
-            <a href="#" onClick={handlePrevClick}>
+            <a href={buildPageUrl(currentPage - 1)} onClick={handlePrevClick}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                 fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"
                 strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-chevron-left">
@@ -43,15 +52,15 @@ export function Pagination({ currentPage = 1, totalPages = 8, onPageChange }) {
                 <a
                     key={page}
                     data-page={page}
-                    href="#"
+                    href={buildPageUrl(page)}
                     className={currentPage === page ? styles['is-active'] : ''}
-                    onClick={(event) => handlePageChange(event, page)}
+                    onClick={(event) => handleChangePage(event, page)}
                 >
                     {page}
                 </a>
             ))}
 
-            <a href="#" onClick={handleNextClick}>
+            <a href={buildPageUrl(currentPage + 1)} onClick={handleNextClick}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                 fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"
                 strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right">

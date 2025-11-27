@@ -5,7 +5,9 @@ import { Pagination } from "../components/Pagination.jsx"
 import { SearchFormSection } from "../components/SearchFormSection.jsx"
 import { JobListings } from "../components/JobListings.jsx"
 
+
 import jobsData from '../../data.json'
+import { useRouter } from "../../hooks/useRouter.jsx"
 
 const RESULTS_PER_PAGE = 5
 
@@ -22,6 +24,8 @@ const useFilter = () => {
     const [jobs, setJobs] = useState([])
     const [total, setTotal] = useState(0)
     const [loading, setLoading] = useState(true)
+
+    const { navigateTo } = useRouter()
 
     useEffect(() => {
         async function fetchData() {
@@ -54,11 +58,30 @@ const useFilter = () => {
         }
 
         fetchData()
-    }, [filters, textToFilter, currentPage])
+    }, [filters, currentPage, textToFilter])
 
-    const totalPages = Math.ceil(jobs.length / RESULTS_PER_PAGE)
+    useEffect(() => {
+        const params = new URLSearchParams()
 
-    const handlePageChange = (page) => {
+        if (textToFilter) params.append('text', textToFilter)
+        if (filters.technology) params.append('technology', filters.technology)
+        if (filters.location) params.append('type', filters.location)
+        if (filters.experienceLevel) params.append('level', filters.experienceLevel)
+
+        if (currentPage > 1) params.append('page', currentPage)
+
+        const newUrl = params.toString()
+        ? `${window.location.pathname}?${params.toString()}`
+        : window.location.pathname
+
+        navigateTo(newUrl)
+
+
+    }, [filters, currentPage, textToFilter, navigateTo])
+
+    const totalPages = Math.ceil(total / RESULTS_PER_PAGE)
+
+    const handleChangePage = (page) => {
         setCurrentPage(page)
     }
 
@@ -79,7 +102,7 @@ const useFilter = () => {
         total,
         totalPages,
         currentPage,
-        handlePageChange,
+        handleChangePage,
         handleSearch,
         handleTextFilter
     }
@@ -94,7 +117,7 @@ export function SearchPage() {
         loading,
         totalPages,
         currentPage,
-        handlePageChange,
+        handleChangePage,
         handleSearch,
         handleTextFilter
     } = useFilter()
@@ -121,7 +144,7 @@ export function SearchPage() {
                 {
                     loading ? <p>Cargando empleos...</p> : <JobListings jobs={jobs} />
                 }
-                <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
+                <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handleChangePage} />
 
             </section>
         </main>

@@ -84,8 +84,10 @@ const useFilter = () => {
             ? `${window.location.pathname}?${params.toString()}`
             : window.location.pathname
 
-        navigateTo(newUrl)
-
+        const currentUrl = window.location.pathname + window.location.search
+        if (currentUrl !== newUrl) {
+            navigateTo(newUrl)
+        }
 
     }, [filters, currentPage, textToFilter, navigateTo])
 

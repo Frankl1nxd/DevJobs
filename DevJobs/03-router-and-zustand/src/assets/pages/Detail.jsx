@@ -1,5 +1,23 @@
 import { useState, useEffect } from "react"
 import { useParams, useNavigate } from "react-router"
+import { Link } from "../components/Link"
+import snarkdown from "snarkdown"
+import styles from "./Detail.module.css"
+
+
+function JobSection({ title, content}) {
+    const html = snarkdown(content)
+    return (
+        <section className={styles.section}>
+            <h2 className={styles.sectionTitle}>
+                {title}
+            </h2>
+
+            <div className={`${styles.sectionContent} prose`} dangerouslySetInnerHTML={{ __html: html }}>
+            </div>
+        </section>
+    )
+}
 
 export function JobDetail() {
     const { jobId } = useParams()
@@ -10,7 +28,7 @@ export function JobDetail() {
     const [error, setError] = useState(null)
 
     useEffect(() => {
-        fetch(`https:https://jscamp-api.vercel.app/api/jobs/${jobId}`)
+        fetch(`https://jscamp-api.vercel.app/api/jobs/${jobId}`)
             .then(response => {
                 if (!response.ok) throw new Error('Network response was not ok')
                 return response.json()
@@ -53,9 +71,42 @@ export function JobDetail() {
     }
 
     return (
-        <>
-            <h1>Job Detail</h1>
-            <h2>La id es {jobId}</h2>
-        </>
+        <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 1rem' }}>
+            <div className={styles.container}>
+                <nav className={styles.breadcrumb}>
+                    <Link
+                    href="/search"
+                    className={styles.breadcrumbButton}
+                    >
+                        Empleos
+                    </Link>
+                    <span className={styles.breadcrumbSeparator}></span>
+                    <span className={styles.breadcrumbCurrent}>{job.titulo}</span>
+                </nav>
+            </div>
+
+            <header className={styles.header}>
+                <h1 className={styles.title}>
+                    {job.titulo}
+                </h1>
+                <p className={styles.meta}>
+                    {job.empresa} - {job.ubicacion}
+                </p>
+
+            </header>
+
+            <button className={styles.applyButton}>
+                Aplicar ahora
+            </button>
+
+            <JobSection title="Descripcion del puesto" content={job.content.description}/>
+            <JobSection title="Responsabilidades" content={job.content.requirements}/>
+            <JobSection title="Requisitos" content={job.content.requirements}/>
+            <JobSection title="Acerca de la empresa" content={job.content.about}/>
+
+            
+
+
+        </div>
     )
 }

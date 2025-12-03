@@ -24,7 +24,7 @@ export function JobDetail() {
     const navigate = useNavigate()
 
     const [job, setJob] = useState(null)
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
 
     useEffect(() => {

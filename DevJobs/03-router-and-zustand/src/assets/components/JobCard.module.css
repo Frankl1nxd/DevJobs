@@ -1,0 +1,29 @@
+.title {
+    text-decoration: none;
+    color: inherit;
+    font-size: 1.2rem;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+.actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+}
+
+.details {
+    padding: 0.5rem 1rem;
+    background-color: #09f;
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+
+    &:hover {
+        background-color: #0056b3;
+        text-decoration: underline;
+    }
+}

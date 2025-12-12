@@ -19,7 +19,7 @@ function JobSection({ title, content}) {
     )
 }
 
-export default function JobDetail() {
+export default function JobDetail({ isLoggedIn }) {
     const { jobId } = useParams()
     const navigate = useNavigate()
 
@@ -95,8 +95,8 @@ export default function JobDetail() {
 
             </header>
 
-            <button className={styles.applyButton}>
-                Aplicar ahora
+            <button disabled={!isLoggedIn} className={styles.applyButton}>
+                { isLoggedIn ? "Aplicar ahora" : "Inicia sesión para aplicar"}
             </button>
 
             <JobSection title="Descripcion del puesto" content={job.content.description}/>
